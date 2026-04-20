@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "BCrypt.Net-Next/4.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Dapper/2.1.72": {
         "type": "package",
         "compile": {
@@ -14,6 +27,25 @@
             "related": ".xml"
           }
         }
+      },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.6": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.0.1"
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Microsoft.AspNetCore.OpenApi/10.0.6": {
         "type": "package",
@@ -371,6 +403,35 @@
     }
   },
   "libraries": {
+    "BCrypt.Net-Next/4.1.0": {
+      "sha512": "5YT3DKllmtkyW68PjURu/V1TOe4MKiByKwsRNVcfYE1S5KuFTeozdmKzyNzolKiQF391OXCaQtINvYT3j1ERzQ==",
+      "type": "package",
+      "path": "bcrypt.net-next/4.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net-next.4.1.0.nupkg.sha512",
+        "bcrypt.net-next.nuspec",
+        "ico.png",
+        "lib/net10.0/BCrypt.Net-Next.dll",
+        "lib/net10.0/BCrypt.Net-Next.xml",
+        "lib/net20/BCrypt.Net-Next.dll",
+        "lib/net20/BCrypt.Net-Next.xml",
+        "lib/net35/BCrypt.Net-Next.dll",
+        "lib/net35/BCrypt.Net-Next.xml",
+        "lib/net462/BCrypt.Net-Next.dll",
+        "lib/net462/BCrypt.Net-Next.xml",
+        "lib/net472/BCrypt.Net-Next.dll",
+        "lib/net472/BCrypt.Net-Next.xml",
+        "lib/net48/BCrypt.Net-Next.dll",
+        "lib/net48/BCrypt.Net-Next.xml",
+        "lib/netstandard2.0/BCrypt.Net-Next.dll",
+        "lib/netstandard2.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.1/BCrypt.Net-Next.dll",
+        "lib/netstandard2.1/BCrypt.Net-Next.xml",
+        "readme.md"
+      ]
+    },
     "Dapper/2.1.72": {
       "sha512": "ns4mGqQd9a/MhP8m6w556vVlZIa0/MfUu03zrxjZC/jlr1uVCsUac8bkdB+Fs98Llbd56rRSo1eZH5VVmeGZyw==",
       "type": "package",
@@ -390,6 +451,22 @@
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml",
         "readme.md"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.6": {
+      "sha512": "JVPyTTr5J/Z5PikptDP2g8qwNJBJ09GZ7yHpaPDAMZ0qKeA2ZKqpZhUNJk1clBqZJeMj2T7gZ5o6oOrmLxuBdw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
+        "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
+        "microsoft.aspnetcore.authentication.jwtbearer.10.0.6.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
     "Microsoft.AspNetCore.OpenApi/10.0.6": {
@@ -873,7 +950,9 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "BCrypt.Net-Next >= 4.1.0",
       "Dapper >= 2.1.72",
+      "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.6",
       "Microsoft.AspNetCore.OpenApi >= 10.0.6",
       "Microsoft.Data.SqlClient >= 7.0.0"
     ]
@@ -885,11 +964,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Attendia\\api\\atAPI\\Attendia.csproj",
+      "projectUniqueName": "D:\\Attendia\\api\\atapi\\Attendia.csproj",
       "projectName": "Attendia",
-      "projectPath": "D:\\Attendia\\api\\atAPI\\Attendia.csproj",
+      "projectPath": "D:\\Attendia\\api\\atapi\\Attendia.csproj",
       "packagesPath": "C:\\Users\\buidu\\.nuget\\packages\\",
-      "outputPath": "D:\\Attendia\\api\\atAPI\\obj\\",
+      "outputPath": "D:\\Attendia\\api\\atapi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -908,7 +987,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {}
         }
@@ -927,12 +1005,19 @@
     },
     "frameworks": {
       "net10.0": {
-        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
+          "BCrypt.Net-Next": {
+            "target": "Package",
+            "version": "[4.1.0, )"
+          },
           "Dapper": {
             "target": "Package",
             "version": "[2.1.72, )"
+          },
+          "Microsoft.AspNetCore.Authentication.JwtBearer": {
+            "target": "Package",
+            "version": "[10.0.6, )"
           },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",

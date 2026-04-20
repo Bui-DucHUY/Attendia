@@ -3,16 +3,44 @@
   "WorkspaceRootPath": "D:\\Attendia\\api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\controllers\\classroomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\controllers\\classroomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\classroomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\repositories\\classroomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\iclassroomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\repositories\\iclassroomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\instructorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\repositories\\instructorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\iinstructorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\repositories\\iinstructorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\attendia.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\attendia.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,10 +85,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\data\\dappercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\data\\dappercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -70,11 +94,83 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "ClassroomController.cs",
+              "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Controllers\\ClassroomController.cs",
+              "RelativeDocumentMoniker": "atAPI\\Controllers\\ClassroomController.cs",
+              "ToolTip": "D:\\Attendia\\api\\atAPI\\Controllers\\ClassroomController.cs",
+              "RelativeToolTip": "atAPI\\Controllers\\ClassroomController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T07:04:34.105Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClassroomRepository.cs",
+              "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\ClassroomRepository.cs",
+              "RelativeDocumentMoniker": "atAPI\\Repositories\\ClassroomRepository.cs",
+              "ToolTip": "D:\\Attendia\\api\\atAPI\\Repositories\\ClassroomRepository.cs",
+              "RelativeToolTip": "atAPI\\Repositories\\ClassroomRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T07:04:00.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IClassroomRepository.cs",
+              "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\IClassroomRepository.cs",
+              "RelativeDocumentMoniker": "atAPI\\Repositories\\IClassroomRepository.cs",
+              "ToolTip": "D:\\Attendia\\api\\atAPI\\Repositories\\IClassroomRepository.cs",
+              "RelativeToolTip": "atAPI\\Repositories\\IClassroomRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T07:03:43.596Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "atAPI\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\Attendia\\api\\atAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "atAPI\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAAFoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T06:57:20.475Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InstructorRepository.cs",
+              "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\InstructorRepository.cs",
+              "RelativeDocumentMoniker": "atAPI\\Repositories\\InstructorRepository.cs",
+              "ToolTip": "D:\\Attendia\\api\\atAPI\\Repositories\\InstructorRepository.cs",
+              "RelativeToolTip": "atAPI\\Repositories\\InstructorRepository.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T06:56:50.555Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IInstructorRepository.cs",
+              "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\IInstructorRepository.cs",
+              "RelativeDocumentMoniker": "atAPI\\Repositories\\IInstructorRepository.cs",
+              "ToolTip": "D:\\Attendia\\api\\atAPI\\Repositories\\IInstructorRepository.cs",
+              "RelativeToolTip": "atAPI\\Repositories\\IInstructorRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T06:56:36.723Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "AttendanceController.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Controllers\\AttendanceController.cs",
               "RelativeDocumentMoniker": "atAPI\\Controllers\\AttendanceController.cs",
@@ -82,12 +178,11 @@
               "RelativeToolTip": "atAPI\\Controllers\\AttendanceController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T06:50:01.079Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T06:50:01.079Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "Attendia.csproj",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Attendia.csproj",
               "RelativeDocumentMoniker": "atAPI\\Attendia.csproj",
@@ -99,7 +194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "AttendanceRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\AttendanceRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\AttendanceRepository.cs",
@@ -111,7 +206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "IAttendanceRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\IAttendanceRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\IAttendanceRepository.cs",
@@ -123,7 +218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "AttendanceRecord.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Models\\AttendanceRecord.cs",
               "RelativeDocumentMoniker": "atAPI\\Models\\AttendanceRecord.cs",
@@ -135,7 +230,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 13,
               "Title": "Enrollment.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Models\\Enrollment.cs",
               "RelativeDocumentMoniker": "atAPI\\Models\\Enrollment.cs",
@@ -147,7 +242,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 14,
               "Title": "appsettings.json.e.g",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\appsettings.json.e.g",
               "RelativeDocumentMoniker": "atAPI\\appsettings.json.e.g",
@@ -159,7 +254,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 15,
               "Title": ".gitignore",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\.gitignore",
               "RelativeDocumentMoniker": "atAPI\\.gitignore",
@@ -171,19 +266,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Program.cs",
               "RelativeDocumentMoniker": "atAPI\\Program.cs",
               "ToolTip": "D:\\Attendia\\api\\atAPI\\Program.cs",
               "RelativeToolTip": "atAPI\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T06:33:27.317Z"
+              "WhenOpened": "2026-04-20T06:33:27.317Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 16,
               "Title": "SessionRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\SessionRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\SessionRepository.cs",
@@ -195,7 +291,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 17,
               "Title": "ISessionRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\ISessionRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\ISessionRepository.cs",
@@ -207,7 +303,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 18,
               "Title": "Session.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Models\\Session.cs",
               "RelativeDocumentMoniker": "atAPI\\Models\\Session.cs",
@@ -219,7 +315,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 19,
               "Title": "Instructor.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Models\\Instructor.cs",
               "RelativeDocumentMoniker": "atAPI\\Models\\Instructor.cs",
@@ -231,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 20,
               "Title": "DapperContext.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Data\\DapperContext.cs",
               "RelativeDocumentMoniker": "atAPI\\Data\\DapperContext.cs",
@@ -243,13 +339,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\appsettings.json",
               "RelativeDocumentMoniker": "atAPI\\appsettings.json",
               "ToolTip": "D:\\Attendia\\api\\atAPI\\appsettings.json",
               "RelativeToolTip": "atAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-04-20T06:28:04.193Z"
             }

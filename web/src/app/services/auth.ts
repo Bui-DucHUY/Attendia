@@ -11,16 +11,17 @@ import { Router } from '@angular/router';
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/Auth`;
   
-  // Signal to keep track of auth state reactively
   public isAuthenticated = signal<boolean>(this.hasToken());
-  public instructorName = signal<string | null>(localStorage.getItem('instructorName'));
+  public instructorName = signal<string | null>(
+    typeof localStorage !== 'undefined' ? localStorage.getItem('instructorName') : null
+  );
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: any) {
     return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
       tap(res => {
-        if (res.token) {
+        if (res.token && typeof localStorage !== 'undefined') {
           localStorage.setItem('jwt_token', res.token);
           localStorage.setItem('instructorName', res.instructorName);
           this.isAuthenticated.set(true);
@@ -38,18 +39,26 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('jwt_token');
-    localStorage.removeItem('instructorName');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('jwt_token');
+      localStorage.removeItem('instructorName');
+    }
     this.isAuthenticated.set(false);
     this.instructorName.set(null);
     this.router.navigate(['/login']);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwt_token');
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('jwt_token');
+    }
+    return null;
   }
 
   private hasToken(): boolean {
-    return !!localStorage.getItem('jwt_token');
+    if (typeof localStorage !== 'undefined') {
+      return !!localStorage.getItem('jwt_token');
+    }
+    return false;
   }
 }

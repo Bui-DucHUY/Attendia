@@ -58,5 +58,25 @@ namespace Attendia.Repositories
                 return (true, "Checked in successfully.");
             }
         }
+        public async Task<IEnumerable<AttendanceRecord>> GetAttendanceBySessionAsync(Guid sessionId)
+        {
+            var query = "SELECT * FROM AttendanceRecords WHERE SessionID = @SessionID ORDER BY CheckInTime DESC";
+
+            using (var connection = _context.CreateConnection())
+            {
+                return await connection.QueryAsync<AttendanceRecord>(query, new { SessionID = sessionId });
+            }
+        }
+
+        public async Task<bool> UpdateApprovalStatusAsync(Guid recordId, bool isApproved)
+        {
+            var query = "UPDATE AttendanceRecords SET IsApproved = @IsApproved WHERE RecordID = @RecordID";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var rowsAffected = await connection.ExecuteAsync(query, new { IsApproved = isApproved, RecordID = recordId });
+                return rowsAffected > 0;
+            }
+        }
     }
 }

@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "D:\\Attendia\\api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\repositories\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\iattendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\repositories\\iattendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,20 +47,8 @@
       "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\attendia.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\attendia.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\repositories\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\repositories\\iattendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|solutionrelative:atapi\\repositories\\iattendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3D002C04-18C2-0FEA-CF06-C6FF4EC17DAC}|atAPI\\Attendia.csproj|d:\\attendia\\api\\atapi\\models\\attendancerecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -94,11 +94,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "ClassroomController.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Controllers\\ClassroomController.cs",
               "RelativeDocumentMoniker": "atAPI\\Controllers\\ClassroomController.cs",
@@ -110,7 +110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "ClassroomRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\ClassroomRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\ClassroomRepository.cs",
@@ -122,7 +122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "IClassroomRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\IClassroomRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\IClassroomRepository.cs",
@@ -134,7 +134,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "atAPI\\Controllers\\AuthController.cs",
@@ -146,7 +146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "InstructorRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\InstructorRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\InstructorRepository.cs",
@@ -158,7 +158,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "IInstructorRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\IInstructorRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\IInstructorRepository.cs",
@@ -170,19 +170,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "AttendanceController.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Controllers\\AttendanceController.cs",
               "RelativeDocumentMoniker": "atAPI\\Controllers\\AttendanceController.cs",
               "ToolTip": "D:\\Attendia\\api\\atAPI\\Controllers\\AttendanceController.cs",
               "RelativeToolTip": "atAPI\\Controllers\\AttendanceController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAGAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T06:50:01.079Z"
+              "WhenOpened": "2026-04-20T06:50:01.079Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "Attendia.csproj",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Attendia.csproj",
               "RelativeDocumentMoniker": "atAPI\\Attendia.csproj",
@@ -194,27 +195,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 1,
               "Title": "AttendanceRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\AttendanceRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\AttendanceRepository.cs",
               "ToolTip": "D:\\Attendia\\api\\atAPI\\Repositories\\AttendanceRepository.cs",
               "RelativeToolTip": "atAPI\\Repositories\\AttendanceRepository.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAuwAAAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAkwE8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T06:46:54.423Z"
+              "WhenOpened": "2026-04-20T06:46:54.423Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 2,
               "Title": "IAttendanceRepository.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Repositories\\IAttendanceRepository.cs",
               "RelativeDocumentMoniker": "atAPI\\Repositories\\IAttendanceRepository.cs",
               "ToolTip": "D:\\Attendia\\api\\atAPI\\Repositories\\IAttendanceRepository.cs",
               "RelativeToolTip": "atAPI\\Repositories\\IAttendanceRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAB1AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T06:46:22.461Z"
+              "WhenOpened": "2026-04-20T06:46:22.461Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -266,7 +269,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\Program.cs",
               "RelativeDocumentMoniker": "atAPI\\Program.cs",
@@ -339,7 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Attendia\\api\\atAPI\\appsettings.json",
               "RelativeDocumentMoniker": "atAPI\\appsettings.json",

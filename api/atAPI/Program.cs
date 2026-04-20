@@ -12,7 +12,7 @@ builder.Services.AddSingleton<DapperContext>();
 // Register Repositories
 builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 // builder.Services.AddScoped<IInstructorRepository, InstructorRepository>(); // Add others as you build them
-
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 var app = builder.Build();
 
 app.UseHttpsRedirection();

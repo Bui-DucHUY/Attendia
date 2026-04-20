@@ -1,6 +1,6 @@
-@atAPI_HostAddress = http://localhost:5056
+@Attendia_HostAddress = http://localhost:5056
 
-GET {{atAPI_HostAddress}}/weatherforecast/
+GET {{Attendia_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

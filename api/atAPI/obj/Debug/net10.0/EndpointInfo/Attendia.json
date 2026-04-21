@@ -340,6 +340,58 @@
         }
       }
     },
+    "/api/Classroom/{classCrn}/roster": {
+      "get": {
+        "tags": [
+          "Classroom"
+        ],
+        "parameters": [
+          {
+            "name": "classCrn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Classroom/{classCrn}/roster/{studentId}": {
+      "delete": {
+        "tags": [
+          "Classroom"
+        ],
+        "parameters": [
+          {
+            "name": "classCrn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Session/create": {
       "post": {
         "tags": [
@@ -349,17 +401,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateSessionRequest"
+                "$ref": "#/components/schemas/Session"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateSessionRequest"
+                "$ref": "#/components/schemas/Session"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateSessionRequest"
+                "$ref": "#/components/schemas/Session"
               }
             }
           }
@@ -371,7 +423,7 @@
         }
       }
     },
-    "/api/Session/{classCrn}": {
+    "/api/Session/class/{classCrn}": {
       "get": {
         "tags": [
           "Session"
@@ -395,6 +447,29 @@
     },
     "/api/Session/{sessionId}": {
       "delete": {
+        "tags": [
+          "Session"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Session/public/{sessionId}": {
+      "get": {
         "tags": [
           "Session"
         ],
@@ -479,28 +554,6 @@
         },
         "additionalProperties": false
       },
-      "CreateSessionRequest": {
-        "type": "object",
-        "properties": {
-          "classCRN": {
-            "type": "string",
-            "nullable": true
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "expiryTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "requiresImage": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
       "Instructor": {
         "type": "object",
         "properties": {
@@ -533,6 +586,32 @@
           "password": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Session": {
+        "type": "object",
+        "properties": {
+          "sessionID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "classCRN": {
+            "type": "string",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expiryTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "requiresImage": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

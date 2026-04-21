@@ -44,15 +44,15 @@ export class SessionManagerComponent implements OnInit {
       next: (res: any[]) => {
         const now = new Date();
         
-        // 1. Timezone map and sort
+        // 1. Timezone map and sort (WITH SAFE NULL CHECKS!)
         this.pastSessions = res.map(s => {
-          const uStart = s.startTime.endsWith('Z') ? s.startTime : s.startTime + 'Z';
-          const uExp = s.expiryTime.endsWith('Z') ? s.expiryTime : s.expiryTime + 'Z';
+          const uStart = s.startTime ? (s.startTime.endsWith('Z') ? s.startTime : s.startTime + 'Z') : '';
+          const uExp = s.expiryTime ? (s.expiryTime.endsWith('Z') ? s.expiryTime : s.expiryTime + 'Z') : null;
           return { ...s, startTime: uStart, expiryTime: uExp };
         }).sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
 
-        // 2. FIX THE REFRESH BUG: Hunt for an active session and restore state!
-        const active = this.pastSessions.find(s => new Date(s.expiryTime) > now);
+        // 2. Hunt for an active session (making sure expiryTime actually exists)
+        const active = this.pastSessions.find(s => s.expiryTime && new Date(s.expiryTime) > now);
         if (active) {
           this.activeSessionId = active.sessionID;
           this.qrCodeUrl = `${window.location.origin}/#/checkin/${this.activeSessionId}`;
@@ -62,6 +62,10 @@ export class SessionManagerComponent implements OnInit {
           this.activeSessionId = null;
         }
 
+        this.isLoadingHistory = false;
+      },
+      error: (err: any) => {
+        console.error('Failed to load history', err);
         this.isLoadingHistory = false;
       }
     });
@@ -101,6 +105,7 @@ export class SessionManagerComponent implements OnInit {
     this.activeSessionId = null;
     this.qrCodeUrl = '';
   }
+
   deleteSession(sessionId: string) {
     if (confirm('Are you sure you want to permanently delete this session?')) {
       this.apiService.deleteSession(sessionId).subscribe(() => this.loadPastSessions());

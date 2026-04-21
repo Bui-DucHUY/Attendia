@@ -1,15 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Attendia.Models;
 using Attendia.Repositories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Attendia.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // Only logged-in instructors can manage sessions
+    [Authorize] // Locks down all endpoints by default
     public class SessionController : ControllerBase
     {
         private readonly ISessionRepository _sessionRepo;
@@ -20,43 +20,21 @@ namespace Attendia.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateSession([FromBody] CreateSessionRequest request)
+        public async Task<IActionResult> CreateSession([FromBody] Session request)
         {
-            try
-            {
-                var newSession = new Session
-                {
-                    SessionID = Guid.NewGuid(),
-                    ClassCRN = request.ClassCRN,
-                    StartTime = request.StartTime,
-                    ExpiryTime = request.ExpiryTime,
-                    RequiresImage = request.RequiresImage
-                };
+            request.SessionID = Guid.NewGuid();
+            var sessionId = await _sessionRepo.CreateSessionAsync(request);
 
-                await _sessionRepo.CreateSessionAsync(newSession);
-
-                // Return the newly generated Guid so the Angular frontend can build the QR code
-                return Ok(new { SessionID = newSession.SessionID, Message = "Session created successfully." });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
-            }
+            return Ok(new { Message = "Session created.", SessionID = sessionId });
         }
 
-        [HttpGet("{classCrn}")]
+        [HttpGet("class/{classCrn}")]
         public async Task<IActionResult> GetSessionsByClass(string classCrn)
         {
-            try
-            {
-                var sessions = await _sessionRepo.GetSessionsByClassAsync(classCrn);
-                return Ok(sessions);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
-            }
+            var sessions = await _sessionRepo.GetSessionsByClassAsync(classCrn);
+            return Ok(sessions);
         }
+
         [HttpDelete("{sessionId}")]
         public async Task<IActionResult> DeleteSession(Guid sessionId)
         {
@@ -64,14 +42,22 @@ namespace Attendia.Controllers
             if (!success) return BadRequest("Failed to delete session.");
             return Ok(new { Message = "Session deleted." });
         }
-    }
 
-    public class CreateSessionRequest
-    {
-        public string ClassCRN { get; set; } = string.Empty;
-        public DateTime StartTime { get; set; }
-        public DateTime? ExpiryTime { get; set; }
-        public bool RequiresImage { get; set; }
-    }
+        [AllowAnonymous] // Unlocks this specific endpoint for the student check-in page
+        [HttpGet("public/{sessionId}")]
+        public async Task<IActionResult> GetPublicSession(Guid sessionId)
+        {
+            var session = await _sessionRepo.GetSessionByIdAsync(sessionId);
 
+            if (session == null)
+                return NotFound(new { message = "Session not found." });
+
+            return Ok(new
+            {
+                classCRN = session.ClassCRN,
+                requiresImage = session.RequiresImage,
+                isExpired = session.ExpiryTime < DateTime.UtcNow
+            });
+        }
+    }
 }

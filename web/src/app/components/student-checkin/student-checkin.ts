@@ -19,6 +19,7 @@ export class StudentCheckinComponent implements OnInit, OnDestroy {
 
   sessionId: string = '';
   studentId: string = '';
+  sessionDetails: any = null; // Holds the public rules
   
   status: 'idle' | 'loading' | 'success' | 'error' = 'idle';
   errorMessage: string = '';
@@ -28,50 +29,62 @@ export class StudentCheckinComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sessionId = this.route.snapshot.paramMap.get('sessionId') || '';
-    this.startCamera();
+    
+    // Fetch rules before doing anything
+    this.apiService.getPublicSession(this.sessionId).subscribe({
+      next: (res) => {
+        this.sessionDetails = res;
+        if (res.isExpired) {
+          this.status = 'error';
+          this.errorMessage = 'This session has expired and is closed.';
+        } else if (res.requiresImage) {
+          this.startCamera(); // Only boot camera if required!
+        }
+      },
+      error: () => {
+        this.status = 'error';
+        this.errorMessage = 'Invalid or missing session.';
+      }
+    });
   }
 
-  ngOnDestroy() {
-    this.stopCamera();
-  }
+  ngOnDestroy() { this.stopCamera(); }
 
   async startCamera() {
     try {
-      // Request front-facing camera
       this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
       if (this.videoFeed) {
         this.videoFeed.nativeElement.srcObject = this.stream;
         this.cameraReady = true;
       }
     } catch (err) {
-      console.error("Camera access denied", err);
-      this.errorMessage = "Camera access is strictly required to check in.";
+      this.errorMessage = "Camera access is strictly required for this class.";
       this.status = 'error';
     }
   }
 
   stopCamera() {
-    if (this.stream) {
-      this.stream.getTracks().forEach(track => track.stop());
-    }
+    if (this.stream) this.stream.getTracks().forEach(track => track.stop());
   }
 
   submitCheckIn() {
-    if (!this.studentId || !this.sessionId || !this.cameraReady) return;
+    if (!this.studentId || !this.sessionId || !this.sessionDetails) return;
     
     this.status = 'loading';
     this.errorMessage = '';
-    
-    // Capture the current frame from the video feed to the hidden canvas
-    const video = this.videoFeed.nativeElement;
-    const canvas = this.canvas.nativeElement;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext('2d');
-    ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
-    // Compress it into a lightweight Base64 string
-    const base64Image = canvas.toDataURL('image/jpeg', 0.6);
+    let base64Image = '';
+
+    // Only capture photo if required
+    if (this.sessionDetails.requiresImage) {
+      if (!this.cameraReady) return;
+      const video = this.videoFeed.nativeElement;
+      const canvas = this.canvas.nativeElement;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
+      base64Image = canvas.toDataURL('image/jpeg', 0.6);
+    }
 
     const payload = {
       sessionID: this.sessionId,
@@ -80,13 +93,13 @@ export class StudentCheckinComponent implements OnInit, OnDestroy {
     };
 
     this.apiService.checkInStudent(payload).subscribe({
-      next: (res: any) => {
+      next: () => {
         this.status = 'success';
-        this.stopCamera(); // Turn off their webcam light immediately
+        this.stopCamera(); 
       },
       error: (err: any) => {
         this.status = 'error';
-        this.errorMessage = err.error?.message || 'Check-in failed. Please try again.';
+        this.errorMessage = err.error?.message || 'Check-in failed.';
       }
     });
   }

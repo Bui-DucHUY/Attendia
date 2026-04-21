@@ -12,11 +12,13 @@ namespace Attendia.Controllers
     {
         private readonly IAttendanceRepository _attendanceRepo;
         private readonly ISessionRepository _sessionRepo;
+        private readonly IClassroomRepository _classroomRepo; // Added
 
-        public AttendanceController(IAttendanceRepository attendanceRepo, ISessionRepository sessionRepo)
+        public AttendanceController(IAttendanceRepository attendanceRepo, ISessionRepository sessionRepo, IClassroomRepository classroomRepo)
         {
             _attendanceRepo = attendanceRepo;
             _sessionRepo = sessionRepo;
+            _classroomRepo = classroomRepo;
         }
 
         [HttpPost("checkin")]
@@ -26,15 +28,16 @@ namespace Attendia.Controllers
             if (session == null) return NotFound(new { message = "Session not found." });
             if (session.ExpiryTime < DateTime.UtcNow) return BadRequest(new { message = "Session has expired." });
 
+            var isEnrolled = await _classroomRepo.IsStudentEnrolledAsync(session.ClassCRN, request.StudentID);
+            if (!isEnrolled) return BadRequest(new { message = "You are not enrolled in this class roster." });
+
             if (session.RequiresImage && string.IsNullOrEmpty(request.ImageUrl))
             {
                 return BadRequest(new { message = "This class strictly requires a live photo to verify attendance." });
             }
 
             request.CheckInTime = DateTime.UtcNow;
-
             var success = await _attendanceRepo.CheckInAsync(request);
-
             if (!success) return BadRequest(new { message = "You have already checked into this session." });
             return Ok(new { Message = "Check-in successful." });
         }

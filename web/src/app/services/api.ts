@@ -10,7 +10,7 @@ export class ApiService {
   private http = inject(HttpClient);
   private baseUrl = environment.apiUrl;
 
-  
+  // --- CLASSROOM MANAGEMENT ---
   getMyClasses(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Classroom/my-classes`);
   }
@@ -19,20 +19,47 @@ export class ApiService {
     return this.http.post<any>(`${this.baseUrl}/Classroom/create`, classData);
   }
 
+  updateClassroom(classCrn: string, classData: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/Classroom/${classCrn}`, classData);
+  }
+
+  deleteClassroom(classCrn: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/Classroom/${classCrn}`);
+  }
+
+  // --- ROSTER MANAGEMENT ---
   enrollStudents(classCrn: string, studentIds: string[]): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/Classroom/${classCrn}/enroll`, studentIds);
   }
 
+  getEnrolledStudents(classCrn: string): Observable<string[]> { 
+    return this.http.get<string[]>(`${this.baseUrl}/Classroom/${classCrn}/roster`); 
+  }
   
+  removeStudent(classCrn: string, studentId: string): Observable<any> { 
+    return this.http.delete<any>(`${this.baseUrl}/Classroom/${classCrn}/roster/${studentId}`); 
+  }
+
+  // --- SESSION MANAGEMENT ---
   createSession(sessionData: { classCRN: string, startTime: string, expiryTime: string, requiresImage: boolean }): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/Session/create`, sessionData);
   }
 
   getSessions(classCrn: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/Session/${classCrn}`);
+    // FIX: Added the missing "/class/" to the route path!
+    return this.http.get<any[]>(`${this.baseUrl}/Session/class/${classCrn}`);
   }
 
-  
+  deleteSession(sessionId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/Session/${sessionId}`);
+  }
+
+  getPublicSession(sessionId: string): Observable<any> { 
+    // Needed for the student check-in camera check
+    return this.http.get<any>(`${this.baseUrl}/Session/public/${sessionId}`); 
+  }
+
+  // --- ATTENDANCE MANAGEMENT ---
   checkInStudent(payload: { sessionID: string, studentID: string, imageUrl?: string }): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/Attendance/checkin`, payload);
   }
@@ -44,20 +71,7 @@ export class ApiService {
   approveAttendance(recordId: string, isApproved: boolean): Observable<any> {
     return this.http.patch<any>(`${this.baseUrl}/Attendance/approve/${recordId}`, { isApproved });
   }
-  // Add to CLASSROOM MANAGEMENT
-  updateClassroom(classCrn: string, classData: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/Classroom/${classCrn}`, classData);
-  }
-  deleteClassroom(classCrn: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/Classroom/${classCrn}`);
-  }
 
-  // Add to SESSION MANAGEMENT
-  deleteSession(sessionId: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/Session/${sessionId}`);
-  }
-
-  // Add to ATTENDANCE
   deleteAttendanceRecord(recordId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/Attendance/${recordId}`);
   }

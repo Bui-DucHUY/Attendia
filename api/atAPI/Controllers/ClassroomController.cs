@@ -83,5 +83,19 @@ namespace Attendia.Controllers
             if (!success) return BadRequest("Failed to delete classroom. Ensure no active sessions exist first.");
             return Ok(new { Message = "Classroom deleted." });
         }
+        [HttpGet("{classCrn}/roster")]
+        public async Task<IActionResult> GetRoster(string classCrn)
+        {
+            var students = await _classroomRepo.GetEnrolledStudentsAsync(classCrn);
+            return Ok(students);
+        }
+
+        [HttpDelete("{classCrn}/roster/{studentId}")]
+        public async Task<IActionResult> RemoveStudent(string classCrn, string studentId)
+        {
+            var success = await _classroomRepo.RemoveStudentAsync(classCrn, studentId);
+            if (!success) return BadRequest("Failed to remove student.");
+            return Ok(new { Message = "Student removed." });
+        }
     }
 }

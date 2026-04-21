@@ -160,6 +160,43 @@
   },
   {
     "ContainingType": "Attendia.Controllers.ClassroomController",
+    "Method": "GetRoster",
+    "RelativePath": "api/Classroom/{classCrn}/roster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classCrn",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.ClassroomController",
+    "Method": "RemoveStudent",
+    "RelativePath": "api/Classroom/{classCrn}/roster/{studentId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classCrn",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "studentId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.ClassroomController",
     "Method": "CreateClass",
     "RelativePath": "api/Classroom/create",
     "HttpMethod": "POST",
@@ -186,22 +223,6 @@
   },
   {
     "ContainingType": "Attendia.Controllers.SessionController",
-    "Method": "GetSessionsByClass",
-    "RelativePath": "api/Session/{classCrn}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "classCrn",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Attendia.Controllers.SessionController",
     "Method": "DeleteSession",
     "RelativePath": "api/Session/{sessionId}",
     "HttpMethod": "DELETE",
@@ -218,6 +239,22 @@
   },
   {
     "ContainingType": "Attendia.Controllers.SessionController",
+    "Method": "GetSessionsByClass",
+    "RelativePath": "api/Session/class/{classCrn}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classCrn",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.SessionController",
     "Method": "CreateSession",
     "RelativePath": "api/Session/create",
     "HttpMethod": "POST",
@@ -226,7 +263,23 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Attendia.Controllers.CreateSessionRequest",
+        "Type": "Attendia.Models.Session",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.SessionController",
+    "Method": "GetPublicSession",
+    "RelativePath": "api/Session/public/{sessionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sessionId",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],

@@ -15,21 +15,23 @@ export class DashboardComponent implements OnInit {
   private apiService = inject(ApiService);
   public authService = inject(AuthService); 
   private router = inject(Router);
-  isEditing = false;
 
   classrooms: any[] = [];
   isLoading = true;
   errorMessage = '';
 
-  // Create Class State
+  // Class Management State
   showCreateModal = false;
+  isEditing = false;
   newClass = { classCRN: '', className: '', classDescription: '' };
   
-  // Roster Import State
+  // Roster Management State
   showRosterModal = false;
   selectedClassCrn = '';
   studentIdsInput = '';
   isEnrolling = false;
+  enrolledStudents: string[] = [];
+  isLoadingRoster = false;
 
   ngOnInit() {
     this.loadClasses();
@@ -49,55 +51,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  createClass() {
-    if (!this.newClass.classCRN || !this.newClass.className) return;
+  // --- CLASSROOM CRUD ---
 
-    this.apiService.createClassroom(this.newClass).subscribe({
-      next: () => {
-        this.showCreateModal = false;
-        this.newClass = { classCRN: '', className: '', classDescription: '' };
-        this.loadClasses(); 
-      },
-      error: (err: any) => {
-        alert('Failed to create class. That CRN might already exist in the database.');
-      }
-    });
-  }
-
-  openRosterModal(crn: string) {
-    this.selectedClassCrn = crn;
-    this.studentIdsInput = '';
-    this.showRosterModal = true;
-  }
   openEditModal(cls: any) {
     this.isEditing = true;
     this.newClass = { classCRN: cls.classCRN, className: cls.className, classDescription: cls.classDescription };
     this.showCreateModal = true;
-  }
-
-  submitClassForm() {
-    if (!this.newClass.classCRN || !this.newClass.className) return;
-
-    if (this.isEditing) {
-      this.apiService.updateClassroom(this.newClass.classCRN, this.newClass).subscribe(() => {
-        this.closeModal();
-        this.loadClasses();
-      });
-    } else {
-      this.apiService.createClassroom(this.newClass).subscribe(() => {
-        this.closeModal();
-        this.loadClasses();
-      });
-    }
-  }
-
-  deleteClassroom(crn: string) {
-    if (confirm(`Type OK to delete ${crn}. This will delete all history.`)) {
-      this.apiService.deleteClassroom(crn).subscribe({
-        next: () => this.loadClasses(),
-        error: () => alert('Failed to delete. Clear sessions first.')
-      });
-    }
   }
 
   closeModal() {
@@ -106,12 +65,63 @@ export class DashboardComponent implements OnInit {
     this.newClass = { classCRN: '', className: '', classDescription: '' };
   }
 
+  submitClassForm() {
+    if (!this.newClass.classCRN || !this.newClass.className) return;
+
+    if (this.isEditing) {
+      this.apiService.updateClassroom(this.newClass.classCRN, this.newClass).subscribe({
+        next: () => {
+          this.closeModal();
+          this.loadClasses();
+        },
+        error: () => alert('Failed to update class.')
+      });
+    } else {
+      this.apiService.createClassroom(this.newClass).subscribe({
+        next: () => {
+          this.closeModal();
+          this.loadClasses(); 
+        },
+        error: () => alert('Failed to create class. That CRN might already exist in the database.')
+      });
+    }
+  }
+
+  deleteClassroom(crn: string) {
+    if (confirm(`Are you sure you want to delete ${crn}? This will delete all attendance history.`)) {
+      this.apiService.deleteClassroom(crn).subscribe({
+        next: () => this.loadClasses(),
+        error: () => alert('Failed to delete. You may need to clear active sessions first.')
+      });
+    }
+  }
+
+  // --- ROSTER MANAGEMENT ---
+
+  openRosterModal(crn: string) {
+    this.selectedClassCrn = crn;
+    this.studentIdsInput = '';
+    this.showRosterModal = true;
+    this.loadRoster();
+  }
+
+  loadRoster() {
+    this.isLoadingRoster = true;
+    this.apiService.getEnrolledStudents(this.selectedClassCrn).subscribe({
+      next: (res) => {
+        this.enrolledStudents = res;
+        this.isLoadingRoster = false;
+      },
+      error: () => {
+        this.isLoadingRoster = false;
+      }
+    });
+  }
+
   enrollStudents() {
     if (!this.studentIdsInput.trim()) return;
-
     this.isEnrolling = true;
     
-    // Parse the input: split by commas or newlines, remove whitespace, and filter out empties
     const rawIds = this.studentIdsInput.split(/[\n,]+/);
     const cleanIds = rawIds.map(id => id.trim()).filter(id => id.length > 0);
 
@@ -121,16 +131,25 @@ export class DashboardComponent implements OnInit {
     }
 
     this.apiService.enrollStudents(this.selectedClassCrn, cleanIds).subscribe({
-      next: (res: any) => {
-        alert(res.message || `Successfully enrolled ${cleanIds.length} students!`);
-        this.showRosterModal = false;
+      next: () => {
+        this.studentIdsInput = ''; 
         this.isEnrolling = false;
+        this.loadRoster(); 
       },
-      error: (err: any) => {
-        alert(err.error?.message || 'Failed to enroll students.');
-        this.isEnrolling = false;
+      error: (err: any) => { 
+        alert(err.error?.message || 'Failed to enroll students.'); 
+        this.isEnrolling = false; 
       }
     });
+  }
+
+  removeStudent(studentId: string) {
+    if(confirm(`Are you sure you want to remove student ${studentId} from the roster?`)) {
+      this.apiService.removeStudent(this.selectedClassCrn, studentId).subscribe({
+        next: () => this.loadRoster(),
+        error: () => alert('Failed to remove student.')
+      });
+    }
   }
 
   logout() {

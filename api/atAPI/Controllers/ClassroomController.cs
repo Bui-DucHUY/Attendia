@@ -2,13 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Attendia.Models;
 using Attendia.Repositories;
-using System.Security.Claims;
 
 namespace Attendia.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // Locks down all endpoints in this controller
+    [Authorize] //
     public class ClassroomController : ControllerBase
     {
         private readonly IClassroomRepository _classroomRepo;
@@ -21,8 +20,7 @@ namespace Attendia.Controllers
         [HttpGet("my-classes")]
         public async Task<IActionResult> GetMyClasses()
         {
-            // Extract the InstructorID from the JWT token claims
-            var instructorIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var instructorIdClaim = User.FindFirst("InstructorID")?.Value;
 
             if (!int.TryParse(instructorIdClaim, out int instructorId))
                 return Unauthorized("Invalid token claims.");
@@ -34,9 +32,12 @@ namespace Attendia.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateClass([FromBody] Classroom request)
         {
-            // Enforce the instructor ID from the token, preventing an instructor from creating a class for someone else
-            var instructorIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            request.InstructorID = int.Parse(instructorIdClaim!);
+            var instructorIdClaim = User.FindFirst("InstructorID")?.Value;
+
+            if (!int.TryParse(instructorIdClaim, out int parsedId))
+                return Unauthorized("Invalid token claims.");
+
+            request.InstructorID = parsedId;
 
             var success = await _classroomRepo.CreateClassroomAsync(request);
 

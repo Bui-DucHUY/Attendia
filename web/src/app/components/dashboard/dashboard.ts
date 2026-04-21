@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   private apiService = inject(ApiService);
   public authService = inject(AuthService); 
   private router = inject(Router);
+  isEditing = false;
 
   classrooms: any[] = [];
   isLoading = true;
@@ -67,6 +68,42 @@ export class DashboardComponent implements OnInit {
     this.selectedClassCrn = crn;
     this.studentIdsInput = '';
     this.showRosterModal = true;
+  }
+  openEditModal(cls: any) {
+    this.isEditing = true;
+    this.newClass = { classCRN: cls.classCRN, className: cls.className, classDescription: cls.classDescription };
+    this.showCreateModal = true;
+  }
+
+  submitClassForm() {
+    if (!this.newClass.classCRN || !this.newClass.className) return;
+
+    if (this.isEditing) {
+      this.apiService.updateClassroom(this.newClass.classCRN, this.newClass).subscribe(() => {
+        this.closeModal();
+        this.loadClasses();
+      });
+    } else {
+      this.apiService.createClassroom(this.newClass).subscribe(() => {
+        this.closeModal();
+        this.loadClasses();
+      });
+    }
+  }
+
+  deleteClassroom(crn: string) {
+    if (confirm(`Type OK to delete ${crn}. This will delete all history.`)) {
+      this.apiService.deleteClassroom(crn).subscribe({
+        next: () => this.loadClasses(),
+        error: () => alert('Failed to delete. Clear sessions first.')
+      });
+    }
+  }
+
+  closeModal() {
+    this.showCreateModal = false;
+    this.isEditing = false;
+    this.newClass = { classCRN: '', className: '', classDescription: '' };
   }
 
   enrollStudents() {

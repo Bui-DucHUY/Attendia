@@ -54,6 +54,7 @@
             <a [routerLink]="['/attendance', session.sessionID]" class="text-sm bg-white border border-gray-300 text-gray-700 font-bold px-3 py-1.5 rounded hover:bg-gray-100 transition-colors">
               Review
             </a>
+            <button (click)="deleteSession(session.sessionID)" class="text-sm bg-red-50 border border-red-200 text-red-600 font-bold px-3 py-1.5 rounded hover:bg-red-100 ml-2">Delete</button>
           </div>
         </div>
 

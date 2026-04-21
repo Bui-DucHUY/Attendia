@@ -1,11 +1,15 @@
 ﻿using Attendia.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Attendia.Repositories
 {
     public interface IAttendanceRepository
     {
-        Task<(bool Success, string Message)> CheckInStudentAsync(Guid sessionId, string studentId, string? imageUrl);
-        Task<IEnumerable<AttendanceRecord>> GetAttendanceBySessionAsync(Guid sessionId);
-        Task<bool> UpdateApprovalStatusAsync(Guid recordId, bool isApproved);
+        Task<bool> CheckInAsync(AttendanceRecord record);
+        Task<IEnumerable<AttendanceRecord>> GetRecordsBySessionAsync(Guid sessionId);
+        Task<bool> ApproveRecordAsync(Guid recordId, bool isApproved); 
+        Task<bool> DeleteRecordAsync(Guid recordId);
     }
 }

@@ -44,4 +44,21 @@ export class ApiService {
   approveAttendance(recordId: string, isApproved: boolean): Observable<any> {
     return this.http.patch<any>(`${this.baseUrl}/Attendance/approve/${recordId}`, { isApproved });
   }
+  // Add to CLASSROOM MANAGEMENT
+  updateClassroom(classCrn: string, classData: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/Classroom/${classCrn}`, classData);
+  }
+  deleteClassroom(classCrn: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/Classroom/${classCrn}`);
+  }
+
+  // Add to SESSION MANAGEMENT
+  deleteSession(sessionId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/Session/${sessionId}`);
+  }
+
+  // Add to ATTENDANCE
+  deleteAttendanceRecord(recordId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/Attendance/${recordId}`);
+  }
 }

@@ -63,5 +63,25 @@ namespace Attendia.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpPut("{classCrn}")]
+        public async Task<IActionResult> UpdateClass(string classCrn, [FromBody] Classroom request)
+        {
+            var instructorIdClaim = User.FindFirst("InstructorID")?.Value;
+            request.InstructorID = int.Parse(instructorIdClaim!);
+            request.ClassCRN = classCrn; // Ensure CRN matches route
+
+            var success = await _classroomRepo.UpdateClassroomAsync(request);
+            if (!success) return BadRequest("Failed to update classroom.");
+            return Ok(new { Message = "Classroom updated." });
+        }
+
+        [HttpDelete("{classCrn}")]
+        public async Task<IActionResult> DeleteClass(string classCrn)
+        {
+            var instructorIdClaim = User.FindFirst("InstructorID")?.Value;
+            var success = await _classroomRepo.DeleteClassroomAsync(classCrn, int.Parse(instructorIdClaim!));
+            if (!success) return BadRequest("Failed to delete classroom. Ensure no active sessions exist first.");
+            return Ok(new { Message = "Classroom deleted." });
+        }
     }
 }

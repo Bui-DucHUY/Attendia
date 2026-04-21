@@ -30,11 +30,17 @@
       <button (click)="showCreateModal = true" class="text-blue-600 font-bold hover:underline text-lg">Create your first class</button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngIf="!isLoading && classrooms.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div *ngFor="let cls of classrooms" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all">
         <div class="p-6 flex flex-col h-full">
           <div>
-            <h3 class="text-2xl font-black text-gray-800 mb-1">{{ cls.classCRN }}</h3>
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="text-2xl font-black text-gray-800">{{ cls.classCRN }}</h3>
+              <div class="flex gap-2">
+                <button (click)="openEditModal(cls)" class="text-blue-600 hover:underline text-sm font-bold">Edit</button>
+                <button (click)="deleteClassroom(cls.classCRN)" class="text-red-600 hover:underline text-sm font-bold">Delete</button>
+              </div>
+            </div>
             <p class="font-bold text-blue-600 mb-3">{{ cls.className }}</p>
             <p class="text-gray-600 text-sm mb-6 line-clamp-3">{{ cls.classDescription || 'No description provided.' }}</p>
           </div>
@@ -54,16 +60,16 @@
 
   <div *ngIf="showCreateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform transition-all">
-      <h3 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">Create New Class</h3>
+      <h3 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">{{ isEditing ? 'Edit Class' : 'Create New Class' }}</h3>
       
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Class CRN (Unique ID)</label>
-        <input type="text" [(ngModel)]="newClass.classCRN" placeholder="e.g. CSC4370" class="w-full p-3 border rounded border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        <input type="text" [(ngModel)]="newClass.classCRN" [disabled]="isEditing" placeholder="e.g. 98765" class="w-full p-3 border rounded border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none disabled:bg-gray-100 disabled:text-gray-500">
       </div>
       
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Class Name</label>
-        <input type="text" [(ngModel)]="newClass.className" placeholder="e.g. Web Programming" class="w-full p-3 border rounded border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+        <input type="text" [(ngModel)]="newClass.className" placeholder="e.g. CSC 1234-56" class="w-full p-3 border rounded border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
       </div>
 
       <div class="mb-8">
@@ -72,9 +78,9 @@
       </div>
 
       <div class="flex justify-end gap-3">
-        <button (click)="showCreateModal = false" class="px-5 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg font-bold transition-colors">Cancel</button>
-        <button (click)="createClass()" [disabled]="!newClass.classCRN || !newClass.className" class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 disabled:bg-blue-300 transition-colors">
-          Create Class
+        <button (click)="closeModal()" class="px-5 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg font-bold transition-colors">Cancel</button>
+        <button (click)="submitClassForm()" [disabled]="!newClass.classCRN || !newClass.className" class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 disabled:bg-blue-300 transition-colors">
+          {{ isEditing ? 'Save Changes' : 'Create Class' }}
         </button>
       </div>
     </div>

@@ -57,6 +57,13 @@ namespace Attendia.Controllers
                 return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
             }
         }
+        [HttpDelete("{sessionId}")]
+        public async Task<IActionResult> DeleteSession(Guid sessionId)
+        {
+            var success = await _sessionRepo.DeleteSessionAsync(sessionId);
+            if (!success) return BadRequest("Failed to delete session.");
+            return Ok(new { Message = "Session deleted." });
+        }
     }
 
     public class CreateSessionRequest
@@ -66,4 +73,5 @@ namespace Attendia.Controllers
         public DateTime? ExpiryTime { get; set; }
         public bool RequiresImage { get; set; }
     }
+
 }

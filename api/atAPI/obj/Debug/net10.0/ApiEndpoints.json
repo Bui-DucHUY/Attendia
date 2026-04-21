@@ -1,7 +1,23 @@
 [
   {
     "ContainingType": "Attendia.Controllers.AttendanceController",
-    "Method": "UpdateApprovalStatus",
+    "Method": "DeleteRecord",
+    "RelativePath": "api/Attendance/{recordId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recordId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.AttendanceController",
+    "Method": "ApproveRecord",
     "RelativePath": "api/Attendance/approve/{recordId}",
     "HttpMethod": "PATCH",
     "IsController": true,
@@ -14,7 +30,7 @@
       },
       {
         "Name": "request",
-        "Type": "Attendia.Controllers.ApprovalRequest",
+        "Type": "Attendia.Controllers.ApproveRequest",
         "IsRequired": true
       }
     ],
@@ -30,7 +46,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Attendia.Controllers.CheckInRequest",
+        "Type": "Attendia.Models.AttendanceRecord",
         "IsRequired": true
       }
     ],
@@ -38,7 +54,7 @@
   },
   {
     "ContainingType": "Attendia.Controllers.AttendanceController",
-    "Method": "GetSessionAttendance",
+    "Method": "GetRecords",
     "RelativePath": "api/Attendance/session/{sessionId}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -79,6 +95,43 @@
       {
         "Name": "request",
         "Type": "Attendia.Models.Instructor",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.ClassroomController",
+    "Method": "UpdateClass",
+    "RelativePath": "api/Classroom/{classCrn}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classCrn",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Attendia.Models.Classroom",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.ClassroomController",
+    "Method": "DeleteClass",
+    "RelativePath": "api/Classroom/{classCrn}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classCrn",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -142,6 +195,22 @@
       {
         "Name": "classCrn",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.SessionController",
+    "Method": "DeleteSession",
+    "RelativePath": "api/Session/{sessionId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sessionId",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],

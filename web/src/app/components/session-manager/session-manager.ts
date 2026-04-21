@@ -42,15 +42,26 @@ export class SessionManagerComponent implements OnInit {
     this.isLoadingHistory = true;
     this.apiService.getSessions(this.classCrn).subscribe({
       next: (res: any[]) => {
-        this.pastSessions = res.map(s => ({
-          ...s,
-          // Force Angular to recognize this as UTC so it automatically converts to local time
-          startTime: s.startTime.endsWith('Z') ? s.startTime : s.startTime + 'Z'
-        })).sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
-        this.isLoadingHistory = false;
-      },
-      error: (err: any) => {
-        console.error('Failed to load history', err);
+        const now = new Date();
+        
+        // 1. Timezone map and sort
+        this.pastSessions = res.map(s => {
+          const uStart = s.startTime.endsWith('Z') ? s.startTime : s.startTime + 'Z';
+          const uExp = s.expiryTime.endsWith('Z') ? s.expiryTime : s.expiryTime + 'Z';
+          return { ...s, startTime: uStart, expiryTime: uExp };
+        }).sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
+
+        // 2. FIX THE REFRESH BUG: Hunt for an active session and restore state!
+        const active = this.pastSessions.find(s => new Date(s.expiryTime) > now);
+        if (active) {
+          this.activeSessionId = active.sessionID;
+          this.qrCodeUrl = `${window.location.origin}/#/checkin/${this.activeSessionId}`;
+          this.isSessionActive = true;
+        } else {
+          this.isSessionActive = false;
+          this.activeSessionId = null;
+        }
+
         this.isLoadingHistory = false;
       }
     });
@@ -89,5 +100,10 @@ export class SessionManagerComponent implements OnInit {
     this.isSessionActive = false;
     this.activeSessionId = null;
     this.qrCodeUrl = '';
+  }
+  deleteSession(sessionId: string) {
+    if (confirm('Are you sure you want to permanently delete this session?')) {
+      this.apiService.deleteSession(sessionId).subscribe(() => this.loadPastSessions());
+    }
   }
 }

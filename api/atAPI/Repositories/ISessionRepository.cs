@@ -6,5 +6,7 @@ namespace Attendia.Repositories
     {
         Task<IEnumerable<Session>> GetSessionsByClassAsync(string classCrn);
         Task<Guid> CreateSessionAsync(Session session);
+        Task<Session> GetSessionByIdAsync(Guid sessionId);
+        Task<bool> DeleteSessionAsync(Guid sessionId);
     }
 }

@@ -14,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CheckInRequest"
+                "$ref": "#/components/schemas/AttendanceRecord"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CheckInRequest"
+                "$ref": "#/components/schemas/AttendanceRecord"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CheckInRequest"
+                "$ref": "#/components/schemas/AttendanceRecord"
               }
             }
           }
@@ -79,21 +79,44 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApprovalRequest"
+                "$ref": "#/components/schemas/ApproveRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApprovalRequest"
+                "$ref": "#/components/schemas/ApproveRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ApprovalRequest"
+                "$ref": "#/components/schemas/ApproveRequest"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Attendance/{recordId}": {
+      "delete": {
+        "tags": [
+          "Attendance"
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -256,6 +279,67 @@
         }
       }
     },
+    "/api/Classroom/{classCrn}": {
+      "put": {
+        "tags": [
+          "Classroom"
+        ],
+        "parameters": [
+          {
+            "name": "classCrn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Classroom"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Classroom"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Classroom"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Classroom"
+        ],
+        "parameters": [
+          {
+            "name": "classCrn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Session/create": {
       "post": {
         "tags": [
@@ -308,11 +392,34 @@
           }
         }
       }
+    },
+    "/api/Session/{sessionId}": {
+      "delete": {
+        "tags": [
+          "Session"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "ApprovalRequest": {
+      "ApproveRequest": {
         "type": "object",
         "properties": {
           "isApproved": {
@@ -321,9 +428,13 @@
         },
         "additionalProperties": false
       },
-      "CheckInRequest": {
+      "AttendanceRecord": {
         "type": "object",
         "properties": {
+          "recordID": {
+            "type": "string",
+            "format": "uuid"
+          },
           "sessionID": {
             "type": "string",
             "format": "uuid"
@@ -332,9 +443,16 @@
             "type": "string",
             "nullable": true
           },
+          "checkInTime": {
+            "type": "string",
+            "format": "date-time"
+          },
           "imageUrl": {
             "type": "string",
             "nullable": true
+          },
+          "isApproved": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

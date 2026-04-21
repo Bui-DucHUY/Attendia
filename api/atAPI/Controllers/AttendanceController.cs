@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
+using Attendia.Models;
+using Attendia.Repositories;
 using System;
 using System.Threading.Tasks;
-using Attendia.Repositories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Attendia.Controllers
 {
@@ -11,86 +11,59 @@ namespace Attendia.Controllers
     public class AttendanceController : ControllerBase
     {
         private readonly IAttendanceRepository _attendanceRepo;
+        private readonly ISessionRepository _sessionRepo;
 
-        public AttendanceController(IAttendanceRepository attendanceRepo)
+        public AttendanceController(IAttendanceRepository attendanceRepo, ISessionRepository sessionRepo)
         {
             _attendanceRepo = attendanceRepo;
+            _sessionRepo = sessionRepo;
         }
 
         [HttpPost("checkin")]
-        public async Task<IActionResult> CheckIn([FromBody] CheckInRequest request)
+        public async Task<IActionResult> CheckIn([FromBody] AttendanceRecord request)
         {
-            if (string.IsNullOrWhiteSpace(request.StudentID))
+            var session = await _sessionRepo.GetSessionByIdAsync(request.SessionID);
+            if (session == null) return NotFound(new { message = "Session not found." });
+            if (session.ExpiryTime < DateTime.UtcNow) return BadRequest(new { message = "Session has expired." });
+
+            if (session.RequiresImage && string.IsNullOrEmpty(request.ImageUrl))
             {
-                return BadRequest(new { message = "Student ID is required." });
+                return BadRequest(new { message = "This class strictly requires a live photo to verify attendance." });
             }
 
-            try
-            {
-                var result = await _attendanceRepo.CheckInStudentAsync(request.SessionID, request.StudentID, request.ImageUrl);
+            request.CheckInTime = DateTime.UtcNow;
 
-                if (result.Success)
-                {
-                    return Ok(new { message = result.Message });
-                }
-                else
-                {
-                    return BadRequest(new { message = result.Message });
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
-            }
+            var success = await _attendanceRepo.CheckInAsync(request);
+
+            if (!success) return BadRequest(new { message = "You have already checked into this session." });
+            return Ok(new { Message = "Check-in successful." });
         }
 
-        // GET: api/attendance/session/{sessionId}
         [HttpGet("session/{sessionId}")]
-        [Authorize] // Only logged-in instructors can view attendance lists
-        public async Task<IActionResult> GetSessionAttendance(Guid sessionId)
+        public async Task<IActionResult> GetRecords(Guid sessionId)
         {
-            try
-            {
-                var records = await _attendanceRepo.GetAttendanceBySessionAsync(sessionId);
-                return Ok(records);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
-            }
+            var records = await _attendanceRepo.GetRecordsBySessionAsync(sessionId);
+            return Ok(records);
         }
 
-        // PATCH: api/attendance/approve/{recordId}
         [HttpPatch("approve/{recordId}")]
-        [Authorize] // Only logged-in instructors can approve/deny records
-        public async Task<IActionResult> UpdateApprovalStatus(Guid recordId, [FromBody] ApprovalRequest request)
+        public async Task<IActionResult> ApproveRecord(Guid recordId, [FromBody] ApproveRequest request)
         {
-            try
-            {
-                var success = await _attendanceRepo.UpdateApprovalStatusAsync(recordId, request.IsApproved);
+            var success = await _attendanceRepo.ApproveRecordAsync(recordId, request.IsApproved);
+            if (!success) return BadRequest(new { message = "Failed to update status." });
+            return Ok(new { Message = "Status updated." });
+        }
 
-                if (!success)
-                    return NotFound(new { message = "Attendance record not found." });
-
-                return Ok(new { message = "Approval status updated successfully." });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
-            }
+        [HttpDelete("{recordId}")]
+        public async Task<IActionResult> DeleteRecord(Guid recordId)
+        {
+            var success = await _attendanceRepo.DeleteRecordAsync(recordId);
+            if (!success) return BadRequest(new { message = "Failed to delete record." });
+            return Ok(new { Message = "Record deleted." });
         }
     }
 
-    // DTO (Data Transfer Object) for incoming JSON requests
-    public class CheckInRequest
-    {
-        public Guid SessionID { get; set; }
-        public string StudentID { get; set; } = string.Empty;
-        public string? ImageUrl { get; set; }
-    }
-
-    // DTO for the approval request
-    public class ApprovalRequest
+    public class ApproveRequest
     {
         public bool IsApproved { get; set; }
     }

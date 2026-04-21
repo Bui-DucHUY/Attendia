@@ -59,5 +59,18 @@ namespace Attendia.Repositories
                 return rowsAffected == studentIds.Count;
             }
         }
+        public async Task<bool> UpdateClassroomAsync(Classroom classroom)
+        {
+            var query = "UPDATE Classroom SET ClassName = @ClassName, ClassDescription = @ClassDescription WHERE ClassCRN = @ClassCRN AND InstructorID = @InstructorID";
+            using var connection = _context.CreateConnection();
+            return await connection.ExecuteAsync(query, classroom) > 0;
+        }
+
+        public async Task<bool> DeleteClassroomAsync(string classCrn, int instructorId)
+        {
+            var query = "DELETE FROM Classroom WHERE ClassCRN = @ClassCRN AND InstructorID = @InstructorID";
+            using var connection = _context.CreateConnection();
+            return await connection.ExecuteAsync(query, new { ClassCRN = classCrn, InstructorID = instructorId }) > 0;
+        }
     }
 }

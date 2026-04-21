@@ -1,1 +1,50 @@
-<p>student-checkin works!</p>
+<div class="min-h-screen bg-blue-600 flex flex-col items-center justify-center p-6 font-sans">
+  
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 text-center transform transition-all">
+    
+    <div class="mb-8">
+      <h1 class="text-3xl font-black text-gray-800 mb-2">Attendia</h1>
+      <p class="text-gray-500 font-medium">Quick Class Check-In</p>
+    </div>
+
+    <div *ngIf="status !== 'success'">
+      
+      <div class="mb-6 text-left">
+        <label class="block text-gray-700 font-bold mb-2 ml-1">Student ID</label>
+        <input 
+          type="text" 
+          [(ngModel)]="studentId" 
+          placeholder="e.g. 001234567" 
+          class="w-full text-center text-2xl tracking-widest p-4 border-2 rounded-xl border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
+        >
+      </div>
+
+      <div *ngIf="status === 'error'" class="mb-6 bg-red-50 text-red-600 p-3 rounded-lg text-sm font-bold border border-red-200">
+        {{ errorMessage }}
+      </div>
+
+      <button 
+        (click)="submitCheckIn()" 
+        [disabled]="!studentId || status === 'loading'"
+        class="w-full bg-blue-600 text-white font-black text-xl py-5 rounded-xl shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 active:translate-y-0 disabled:bg-blue-300 disabled:transform-none transition-all uppercase tracking-wide">
+        {{ status === 'loading' ? 'Processing...' : 'Mark Me Present' }}
+      </button>
+    </div>
+
+    <div *ngIf="status === 'success'" class="py-8 animate-fade-in-up">
+      <div class="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">You're Checked In!</h2>
+      <p class="text-gray-500 font-medium">Your attendance has been recorded.</p>
+      <p class="text-sm text-gray-400 mt-6">You can now close this tab.</p>
+    </div>
+
+  </div>
+
+  <div class="mt-8 text-blue-200 text-sm font-medium">
+    Session ID: {{ sessionId | slice:0:8 }}...
+  </div>
+</div>

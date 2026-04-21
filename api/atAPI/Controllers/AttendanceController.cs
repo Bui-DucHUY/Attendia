@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Attendia.Models;
 using Attendia.Repositories;
@@ -8,11 +9,12 @@ namespace Attendia.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] 
     public class AttendanceController : ControllerBase
     {
         private readonly IAttendanceRepository _attendanceRepo;
         private readonly ISessionRepository _sessionRepo;
-        private readonly IClassroomRepository _classroomRepo; // Added
+        private readonly IClassroomRepository _classroomRepo;
 
         public AttendanceController(IAttendanceRepository attendanceRepo, ISessionRepository sessionRepo, IClassroomRepository classroomRepo)
         {
@@ -21,6 +23,7 @@ namespace Attendia.Controllers
             _classroomRepo = classroomRepo;
         }
 
+        [AllowAnonymous] // Leaves only this specific route open for students
         [HttpPost("checkin")]
         public async Task<IActionResult> CheckIn([FromBody] AttendanceRecord request)
         {

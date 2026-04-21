@@ -2,13 +2,22 @@
   
   <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 text-center transform transition-all">
     
-    <div class="mb-8">
+    <div class="mb-6">
       <h1 class="text-3xl font-black text-gray-800 mb-2">Attendia</h1>
       <p class="text-gray-500 font-medium">Quick Class Check-In</p>
     </div>
 
     <div *ngIf="status !== 'success'">
       
+      <div class="mb-6 relative bg-black rounded-xl overflow-hidden aspect-video border-4 border-gray-100 shadow-inner">
+        <video #videoFeed autoplay playsinline [muted]="true" class="w-full h-full object-cover"></video>
+        <div *ngIf="!cameraReady && status !== 'error'" class="absolute inset-0 flex items-center justify-center text-white font-bold bg-gray-800 animate-pulse">
+          Requesting camera access...
+        </div>
+      </div>
+      
+      <canvas #canvas class="hidden"></canvas>
+
       <div class="mb-6 text-left">
         <label class="block text-gray-700 font-bold mb-2 ml-1">Student ID</label>
         <input 
@@ -25,9 +34,9 @@
 
       <button 
         (click)="submitCheckIn()" 
-        [disabled]="!studentId || status === 'loading'"
+        [disabled]="!studentId || status === 'loading' || !cameraReady"
         class="w-full bg-blue-600 text-white font-black text-xl py-5 rounded-xl shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 active:translate-y-0 disabled:bg-blue-300 disabled:transform-none transition-all uppercase tracking-wide">
-        {{ status === 'loading' ? 'Processing...' : 'Mark Me Present' }}
+        {{ status === 'loading' ? 'Processing...' : 'Capture Photo & Check In' }}
       </button>
     </div>
 

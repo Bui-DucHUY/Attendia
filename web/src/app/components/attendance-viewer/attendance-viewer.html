@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-gray-50 p-8 relative">
+  <div class="max-w-4xl mx-auto">
+    
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <button (click)="location.back()" class="text-blue-600 hover:underline font-bold text-sm mb-2 inline-block">&larr; Back to Sessions</button>
+        <h1 class="text-3xl font-black text-gray-800">Attendance Roster</h1>
+        <p class="text-gray-500 mt-1">Session ID: {{ sessionId }}</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      
+      <div *ngIf="isLoading" class="p-8 text-center text-gray-500 animate-pulse font-medium">
+        Loading student records...
+      </div>
+
+      <div *ngIf="!isLoading && records.length === 0" class="p-12 text-center">
+        <p class="text-gray-500 text-lg font-medium mb-2">No check-ins yet.</p>
+        <p class="text-gray-400 text-sm">Students who scan the QR code will appear here instantly.</p>
+      </div>
+
+      <table *ngIf="!isLoading && records.length > 0" class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200 text-gray-600 text-sm">
+            <th class="p-4 font-bold uppercase tracking-wider">Photo</th>
+            <th class="p-4 font-bold uppercase tracking-wider">Student ID</th>
+            <th class="p-4 font-bold uppercase tracking-wider">Local Time</th>
+            <th class="p-4 font-bold uppercase tracking-wider">Status</th>
+            <th class="p-4 font-bold uppercase tracking-wider text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rec of records" class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            
+            <td class="p-4">
+              <button *ngIf="rec.imageUrl" (click)="viewPhoto(rec.imageUrl)" class="w-12 h-12 rounded-lg bg-gray-200 overflow-hidden border border-gray-300 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <img [src]="rec.imageUrl" class="w-full h-full object-cover">
+              </button>
+              <span *ngIf="!rec.imageUrl" class="text-gray-400 italic text-sm">N/A</span>
+            </td>
+
+            <td class="p-4 font-bold text-gray-800 text-lg tracking-widest">{{ rec.studentID }}</td>
+            <td class="p-4 text-gray-600 font-medium">{{ rec.checkInTime | date:'mediumTime' }}</td>
+            <td class="p-4">
+              <span *ngIf="rec.isApproved" class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wide">Approved</span>
+              <span *ngIf="!rec.isApproved" class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wide">Denied</span>
+            </td>
+            <td class="p-4 text-right">
+              <button 
+                (click)="toggleApproval(rec)"
+                class="text-sm font-bold px-4 py-2 rounded-lg transition-colors"
+                [ngClass]="rec.isApproved ? 'bg-white border border-gray-300 text-gray-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200' : 'bg-green-500 text-white hover:bg-green-600 shadow-sm'">
+                {{ rec.isApproved ? 'Revoke' : 'Approve' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="selectedImage" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50 animate-fade-in">
+    <div class="relative max-w-2xl w-full">
+      <button (click)="selectedImage = null" class="absolute -top-12 right-0 text-white hover:text-gray-300 font-bold text-lg transition-colors">
+        Close &times;
+      </button>
+      <img [src]="selectedImage" class="w-full h-auto rounded-xl shadow-2xl border-4 border-gray-800">
+    </div>
+  </div>
+</div>

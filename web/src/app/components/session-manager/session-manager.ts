@@ -14,26 +14,46 @@ import { ApiService } from '../../services/api';
 export class SessionManagerComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  
   private apiService = inject(ApiService); 
 
   classCrn: string = '';
-  
   durationMinutes: number = 15;
   requiresImage: boolean = true;
   
   isSessionActive: boolean = false;
   activeSessionId: string | null = null;
   qrCodeUrl: string = '';
-  
   errorMessage: string = '';
   isLoading: boolean = false;
+
+  pastSessions: any[] = [];
+  isLoadingHistory: boolean = false;
 
   ngOnInit() {
     this.classCrn = this.route.snapshot.paramMap.get('crn') || '';
     if (!this.classCrn) {
       this.router.navigate(['/dashboard']);
+      return;
     }
+    this.loadPastSessions();
+  }
+
+  loadPastSessions() {
+    this.isLoadingHistory = true;
+    this.apiService.getSessions(this.classCrn).subscribe({
+      next: (res: any[]) => {
+        this.pastSessions = res.map(s => ({
+          ...s,
+          // Force Angular to recognize this as UTC so it automatically converts to local time
+          startTime: s.startTime.endsWith('Z') ? s.startTime : s.startTime + 'Z'
+        })).sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
+        this.isLoadingHistory = false;
+      },
+      error: (err: any) => {
+        console.error('Failed to load history', err);
+        this.isLoadingHistory = false;
+      }
+    });
   }
 
   startSession() {
@@ -51,17 +71,15 @@ export class SessionManagerComponent implements OnInit {
     };
 
     this.apiService.createSession(sessionPayload).subscribe({
-      next: (res: any) => { // <-- Add ': any' here
+      next: (res: any) => {
         this.activeSessionId = res.sessionID; 
-        
-        // Constructs the exact local network URL for the students' phones
         this.qrCodeUrl = `${window.location.origin}/#/checkin/${this.activeSessionId}`;
-        
         this.isSessionActive = true;
         this.isLoading = false;
+        this.loadPastSessions(); 
       },
-      error: (err: any) => { 
-        this.errorMessage = 'Failed to create session. Ensure the API is running.';
+      error: (err: any) => {
+        this.errorMessage = err.error?.message || 'Failed to create session.';
         this.isLoading = false;
       }
     });

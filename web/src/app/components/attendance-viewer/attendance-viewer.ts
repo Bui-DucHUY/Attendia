@@ -59,4 +59,27 @@ export class AttendanceViewerComponent implements OnInit {
   viewPhoto(imageUrl: string) {
     this.selectedImage = imageUrl;
   }
+  exportToCsv() {
+    if (this.records.length === 0) return;
+
+    // 1. Create CSV Headers
+    let csvContent = "Student ID,Check-In Time,Status\n";
+
+    // 2. Loop through records and format them
+    this.records.forEach(rec => {
+      const time = new Date(rec.checkInTime).toLocaleString();
+      const status = rec.isApproved ? "Approved" : "Denied";
+      csvContent += `${rec.studentID},"${time}",${status}\n`;
+    });
+
+    // 3. Create a Blob and trigger a download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `Attendance_Session_${this.sessionId.substring(0, 8)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }

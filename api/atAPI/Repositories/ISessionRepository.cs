@@ -8,5 +8,6 @@ namespace Attendia.Repositories
         Task<Guid> CreateSessionAsync(Session session);
         Task<Session> GetSessionByIdAsync(Guid sessionId);
         Task<bool> DeleteSessionAsync(Guid sessionId);
+        Task<bool> EndSessionAsync(Guid sessionId);
     }
 }

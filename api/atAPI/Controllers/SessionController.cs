@@ -9,7 +9,7 @@ namespace Attendia.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // Locks down all endpoints by default
+    [Authorize]
     public class SessionController : ControllerBase
     {
         private readonly ISessionRepository _sessionRepo;
@@ -24,7 +24,6 @@ namespace Attendia.Controllers
         {
             request.SessionID = Guid.NewGuid();
             var sessionId = await _sessionRepo.CreateSessionAsync(request);
-
             return Ok(new { Message = "Session created.", SessionID = sessionId });
         }
 
@@ -43,14 +42,21 @@ namespace Attendia.Controllers
             return Ok(new { Message = "Session deleted." });
         }
 
-        [AllowAnonymous] // Unlocks this specific endpoint for the student check-in page
+        // --- NEW: Expose the End Session route ---
+        [HttpPatch("{sessionId}/end")]
+        public async Task<IActionResult> EndSession(Guid sessionId)
+        {
+            var success = await _sessionRepo.EndSessionAsync(sessionId);
+            if (!success) return BadRequest("Failed to end session.");
+            return Ok(new { Message = "Session ended." });
+        }
+
+        [AllowAnonymous]
         [HttpGet("public/{sessionId}")]
         public async Task<IActionResult> GetPublicSession(Guid sessionId)
         {
             var session = await _sessionRepo.GetSessionByIdAsync(sessionId);
-
-            if (session == null)
-                return NotFound(new { message = "Session not found." });
+            if (session == null) return NotFound(new { message = "Session not found." });
 
             return Ok(new
             {

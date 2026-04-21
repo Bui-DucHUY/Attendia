@@ -101,9 +101,20 @@ export class SessionManagerComponent implements OnInit {
   }
 
   endSession() {
-    this.isSessionActive = false;
-    this.activeSessionId = null;
-    this.qrCodeUrl = '';
+    if (!this.activeSessionId) return;
+
+    this.apiService.endSessionEarly(this.activeSessionId).subscribe({
+      next: () => {
+        this.isSessionActive = false;
+        this.activeSessionId = null;
+        this.qrCodeUrl = '';
+        this.loadPastSessions(); // Refresh the list so the UI knows it's dead
+      },
+      error: (err: any) => {
+        alert('Failed to close session early.');
+        console.error(err);
+      }
+    });
   }
 
   deleteSession(sessionId: string) {

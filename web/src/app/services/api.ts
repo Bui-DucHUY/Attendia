@@ -46,7 +46,6 @@ export class ApiService {
   }
 
   getSessions(classCrn: string): Observable<any[]> {
-    // FIX: Added the missing "/class/" to the route path!
     return this.http.get<any[]>(`${this.baseUrl}/Session/class/${classCrn}`);
   }
 
@@ -54,8 +53,12 @@ export class ApiService {
     return this.http.delete<any>(`${this.baseUrl}/Session/${sessionId}`);
   }
 
+  // --- NEW: Connects to your backend patch ---
+  endSessionEarly(sessionId: string): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/Session/${sessionId}/end`, {});
+  }
+
   getPublicSession(sessionId: string): Observable<any> { 
-    // Needed for the student check-in camera check
     return this.http.get<any>(`${this.baseUrl}/Session/public/${sessionId}`); 
   }
 

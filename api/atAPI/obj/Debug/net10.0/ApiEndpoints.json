@@ -239,6 +239,22 @@
   },
   {
     "ContainingType": "Attendia.Controllers.SessionController",
+    "Method": "EndSession",
+    "RelativePath": "api/Session/{sessionId}/end",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sessionId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Attendia.Controllers.SessionController",
     "Method": "GetSessionsByClass",
     "RelativePath": "api/Session/class/{classCrn}",
     "HttpMethod": "GET",

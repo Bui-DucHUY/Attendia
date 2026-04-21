@@ -468,6 +468,29 @@
         }
       }
     },
+    "/api/Session/{sessionId}/end": {
+      "patch": {
+        "tags": [
+          "Session"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Session/public/{sessionId}": {
       "get": {
         "tags": [

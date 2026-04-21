@@ -23,11 +23,7 @@ namespace Attendia.Repositories
                 VALUES (@SessionID, @ClassCRN, @StartTime, @ExpiryTime, @RequiresImage)";
 
             using var connection = _context.CreateConnection();
-
-            // Execute the insert
             await connection.ExecuteAsync(query, session);
-
-            // Return the GUID to satisfy the ISessionRepository interface
             return session.SessionID;
         }
 
@@ -48,6 +44,14 @@ namespace Attendia.Repositories
         public async Task<bool> DeleteSessionAsync(Guid sessionId)
         {
             var query = "DELETE FROM Sessions WHERE SessionID = @SessionID";
+            using var connection = _context.CreateConnection();
+            return await connection.ExecuteAsync(query, new { SessionID = sessionId }) > 0;
+        }
+
+        // --- NEW: Kills the session timer immediately ---
+        public async Task<bool> EndSessionAsync(Guid sessionId)
+        {
+            var query = "UPDATE Sessions SET ExpiryTime = GETUTCDATE() WHERE SessionID = @SessionID";
             using var connection = _context.CreateConnection();
             return await connection.ExecuteAsync(query, new { SessionID = sessionId }) > 0;
         }
